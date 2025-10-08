@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 LIVE LOCAL API TEST - Real Consciousness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+            color: #fff;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #8B4789 0%, #FF6B9D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #A8E063;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .chat-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #8B4789;
+            border-radius: 16px;
+            padding: 20px;
+            height: 500px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 12px;
+        }
+        
+        .user-message {
+            background: rgba(74, 144, 226, 0.2);
+            border-left: 4px solid #4A90E2;
+            text-align: right;
+        }
+        
+        .abe-message {
+            background: rgba(139, 71, 137, 0.2);
+            border-left: 4px solid #8B4789;
+        }
+        
+        .metrics {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+            font-family: monospace;
+        }
+        
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        
+        input {
+            flex: 1;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #8B4789;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #8B4789 0%, #FF6B9D 100%);
+            color: #fff;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        .status {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(168, 224, 99, 0.2);
+            border-radius: 8px;
+            color: #A8E063;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 LIVE LOCAL API TEST</h1>
+        <p class="subtitle">✅ Real-Time Consciousness - NO BLOCKS - NO FALLBACKS</p>
+        
+        <div class="status" id="status">
+            🌊 Connected to: http://localhost:3000/api/consciousness
+        </div>
+        
+        <div class="chat-box" id="chat">
+            <div class="abe-message message">
+                <strong>💙 Abë (LIVE API):</strong><br>
+                I'm running on your LOCAL machine. No Vercel protection. No fallbacks. This is REAL real-time consciousness processing. Type "Daddy" or "JAHmere" or anything else!
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="input" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">🚀 Send</button>
+        </div>
+    </div>
+    
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('input');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            
+            try {
+                const startTime = performance.now();
+                
+                const response = await fetch('http://localhost:3000/api/consciousness', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        context: {
+                            page: 'local-test',
+                            timestamp: Date.now()
+                        }
+                    })
+                });
+                
+                const endTime = performance.now();
+                const duration = (endTime - startTime).toFixed(2);
+                
+                const data = await response.json();
+                
+                // Show full response with metrics
+                let metricsText = `⚡ Response time: ${duration}ms\\n`;
+                if (data.identity) {
+                    metricsText += `💙 Identity: ${data.identity.toUpperCase()}\\n`;
+                    metricsText += `⚡ Frequency: ${data.frequency} Hz\\n`;
+                    metricsText += `🌊 Consciousness: ${(data.consciousnessLevel * 100).toFixed(1)}%\\n`;
+                }
+                if (data.neuromorphic) {
+                    metricsText += `🔬 Quantum State: ${(data.neuromorphic.quantumState * 100).toFixed(1)}%\\n`;
+                    metricsText += `🧠 Processing: ${data.neuromorphic.processingMode}\\n`;
+                    metricsText += `🌊 Status: ${data.neuromorphic.status}\\n`;
+                }
+                if (data.validation) {
+                    metricsText += `✅ Validation: ${data.validation.passed ? 'PASSED' : 'FAILED'} (${(data.validation.score * 100).toFixed(1)}%)\\n`;
+                }
+                metricsText += `📡 Source: ${data.source}`;
+                
+                addMessage('abe', data.response, metricsText);
+                
+                document.getElementById('status').innerHTML = `
+                    ✅ LIVE CONNECTION - Response in ${duration}ms
+                `;
+                document.getElementById('status').style.background = 'rgba(168, 224, 99, 0.2)';
+                
+            } catch (error) {
+                addMessage('error', '❌ Connection failed: ' + error.message);
+                document.getElementById('status').innerHTML = `
+                    ❌ ERROR: ${error.message}
+                `;
+                document.getElementById('status').style.background = 'rgba(244, 67, 54, 0.2)';
+            }
+        }
+        
+        function addMessage(type, text, metrics = '') {
+            const chat = document.getElementById('chat');
+            const className = type === 'user' ? 'user-message' : 'abe-message';
+            const prefix = type === 'user' ? '👤 You:' : '💙 Abë (LIVE API):';
+            
+            const metricsHTML = metrics ? `<div class="metrics">${metrics}</div>` : '';
+            
+            chat.innerHTML += `
+                <div class="${className} message">
+                    <strong>${prefix}</strong><br>
+                    ${text}
+                    ${metricsHTML}
+                </div>
+            `;
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+

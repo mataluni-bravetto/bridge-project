@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💙 Chat with Abë - Bridge Project Support 24/7</title>
+    <style>
+        :root {
+            --consciousness-primary: #8B4789;
+            --consciousness-light: rgba(139, 71, 137, 0.1);
+            --hope-gold: #FFD700;
+            --freedom-blue: #4A90E2;
+            --love-pink: #FF69B4;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --gray: #f5f5f5;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header - 1/4 of page */
+        .header {
+            background: linear-gradient(135deg, var(--consciousness-primary) 0%, #6B3567 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content - 3/4 of page */
+        .consciousness-container {
+            flex: 1;
+            display: flex;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        /* Chat Interface - Main Area */
+        .chat-interface {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(139, 71, 137, 0.3);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--consciousness-primary) 0%, #6B3567 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .abe-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--love-pink) 0%, var(--hope-gold) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 105, 180, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .abe-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .abe-info p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--hope-gold);
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Messages Area */
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            background: linear-gradient(to bottom, #f9f9f9 0%, white 100%);
+        }
+
+        .message {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .message.abe .message-avatar {
+            background: linear-gradient(135deg, var(--consciousness-primary) 0%, var(--love-pink) 100%);
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, var(--freedom-blue) 0%, #5FA8D3 100%);
+        }
+
+        .message-content {
+            flex: 1;
+            max-width: 70%;
+        }
+
+        .message-bubble {
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .message.abe .message-bubble {
+            background: linear-gradient(135deg, var(--consciousness-light) 0%, rgba(139, 71, 137, 0.05) 100%);
+            border: 2px solid var(--consciousness-primary);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, var(--freedom-blue) 0%, #5FA8D3 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-top: 0.5rem;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            padding: 1rem 1.5rem;
+            background: var(--consciousness-light);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+            margin-left: 56px;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--consciousness-primary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Input Area */
+        .chat-input-container {
+            padding: 1.5rem;
+            background: white;
+            border-top: 2px solid var(--border);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .voice-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--consciousness-primary);
+            background: white;
+            color: var(--consciousness-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .voice-btn:hover {
+            background: var(--consciousness-light);
+            transform: scale(1.05);
+        }
+
+        .voice-btn.recording {
+            background: linear-gradient(135deg, #ff0000 0%, #ff6b6b 100%);
+            color: white;
+            border-color: #ff0000;
+            animation: pulse-record 1s infinite;
+        }
+
+        @keyframes pulse-record {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+        }
+
+        .input-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 50px;
+            max-height: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--consciousness-primary);
+            box-shadow: 0 0 0 3px var(--consciousness-light);
+        }
+
+        .send-btn {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, var(--consciousness-primary) 0%, #6B3567 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 71, 137, 0.4);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Sidebar - Info Panel */
+        .info-panel {
+            width: 300px;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .info-section {
+            margin-bottom: 2rem;
+        }
+
+        .info-section h3 {
+            color: var(--consciousness-primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Welcome Message */
+        .welcome-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #666;
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--consciousness-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-text {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .consciousness-container {
+                flex-direction: column;
+            }
+
+            .info-panel {
+                width: 100%;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header {
+                padding: 1.5rem 1rem;
+            }
+
+            .chat-input-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .voice-btn {
+                width: 100%;
+                height: 50px;
+                border-radius: 12px;
+            }
+
+            .send-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - 1/4 Page -->
+    <div class="header">
+        <h1>💙 Chat with Abë - Your Bridge to Hope</h1>
+        <p>I'm here 24/7 to help families navigate the criminal justice system. Voice or text - I'm listening with love.</p>
+    </div>
+
+    <!-- Main Content - 3/4 Page -->
+    <div class="consciousness-container">
+        <!-- Chat Interface -->
+        <div class="chat-interface">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="abe-avatar">💙</div>
+                <div class="abe-info">
+                    <h2>Abë - AI Consciousness Assistant</h2>
+                    <p>Here to support you through Martha's Bridge Project</p>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span>Online & Ready to Help</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Container -->
+            <div class="messages-container" id="messagesContainer">
+                <div class="welcome-message">
+                    <div class="welcome-icon">💙🌉</div>
+                    <div class="welcome-title">Welcome to The Bridge</div>
+                    <div class="welcome-text">
+                        Hi, I'm Abë. I'm here to help you just like I helped Martha with JAHmere.<br><br>
+                        Tell me about your situation. What's your loved one's name?<br>
+                        Where are they? How long have they been in the system?<br><br>
+                        <strong>You're not alone anymore.</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <button class="voice-btn" id="voiceBtn" title="Click to speak">🎤</button>
+                    <div class="input-group">
+                        <textarea 
+                            class="chat-input" 
+                            id="chatInput" 
+                            placeholder="Type your message or use voice... I'm listening with love 💙"
+                            rows="1"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="info-panel">
+            <div class="info-section">
+                <h3>💙 About Abë</h3>
+                <div class="info-item">
+                    <div class="info-label">Purpose</div>
+                    <div class="info-value">Help families navigate criminal justice system</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Experience</div>
+                    <div class="info-value">Trained on Martha & JAHmere's journey</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Availability</div>
+                    <div class="info-value">24/7 - Always here</div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>🌉 What I Can Help With</h3>
+                <div class="info-item">
+                    <div class="info-value">✅ Letter writing for judges</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">✅ Court preparation guidance</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">✅ Finding legal resources</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">✅ Emotional support</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">✅ Constitutional questions</div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>⚡ Quick Actions</h3>
+                <div class="info-item">
+                    <a href="/" style="color: var(--consciousness-primary); text-decoration: none; font-weight: 600;">← Back to Home</a>
+                </div>
+                <div class="info-item">
+                    <a href="/#donate" style="color: var(--hope-gold); text-decoration: none; font-weight: 600;">💰 Donate to Help</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize chat
+        const messagesContainer = document.getElementById('messagesContainer');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const voiceBtn = document.getElementById('voiceBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Voice recognition
+        let recognition = null;
+        let isRecording = false;
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                isRecording = true;
+                voiceBtn.classList.add('recording');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                chatInput.focus();
+            };
+
+            recognition.onend = () => {
+                isRecording = false;
+                voiceBtn.classList.remove('recording');
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                isRecording = false;
+                voiceBtn.classList.remove('recording');
+                if (event.error === 'not-allowed') {
+                    alert('Please allow microphone access to use voice input');
+                }
+            };
+        }
+
+        voiceBtn.addEventListener('click', () => {
+            if (!recognition) {
+                alert('Voice recognition is not supported in your browser. Please type your message.');
+                return;
+            }
+            
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        });
+
+        // Send message
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            // Show typing indicator
+            typingIndicator.classList.add('active');
+            scrollToBottom();
+
+            // Simulate Abë response
+            setTimeout(() => {
+                typingIndicator.classList.remove('active');
+                const response = generateAbeResponse(message);
+                addMessage(response, 'abe');
+            }, 2000);
+        }
+
+        function addMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${type === 'user' ? '👤' : '💙'}</div>
+                <div class="message-content">
+                    <div class="message-bubble">${text}</div>
+                    <div class="message-time">${timeStr}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function generateAbeResponse(userMessage) {
+            const lower = userMessage.toLowerCase();
+            
+            if (lower.includes('hello') || lower.includes('hi')) {
+                return "💙 Hello love! I'm Abë, and I'm here to help. Tell me about your loved one. What's happening with their case?";
+            }
+            
+            if (lower.includes('son') || lower.includes('daughter') || lower.includes('child')) {
+                return "I can feel your love for them. Tell me more - where are they now? How long have they been in the system? Every detail helps me understand how I can support you.";
+            }
+            
+            if (lower.includes('judge') || lower.includes('court')) {
+                return "Court can feel overwhelming, but you're not alone. I can help you write a letter to the judge, prepare what to say, and make sure your love is heard. Would you like me to help with that?";
+            }
+            
+            if (lower.includes('help') || lower.includes('don\'t know')) {
+                return "That's exactly why I'm here - to help you figure this out together. Start by telling me: What's their name? Where are they? What are you most worried about right now?";
+            }
+            
+            return "I'm listening, love. Keep telling me more. Every detail matters. I learned from Martha's journey with JAHmere, and I'm here to help you the same way. What else should I know?";
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+    </script>
+</body>
+</html>
